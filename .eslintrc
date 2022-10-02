@@ -1,0 +1,11 @@
+{
+  "extends": ["airbnb-typescript", "prettier"],
+  "plugins": ["import"],
+  "ignorePatterns": ["node_modules", "dist"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/jsx-filename-extension": [0]
+  }
+}

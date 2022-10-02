@@ -1,0 +1,48 @@
+{
+  "name": "next-i18next-ext",
+  "version": "0.0.3",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./appWithTranslation": "./dist/appWithTranslation.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["dist/index.d.ts"],
+      "appWithTranslation": ["dist/appWithTranslation.d.ts"]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint src",
+    "watch": "tsup --watch",
+    "build": "tsup --clean",
+    "prepublishOnly": "yarn run lint && yarn run build"
+  },
+  "author": "Roman Samoylov (https://github.com/fakundo)",
+  "license": "ISC",
+  "dependencies": {
+    "next-i18next": "^12.1.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.24.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "next": "^12.3.1",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.4"
+  },
+  "peerDependencies": {
+    "next": ">=10.0.0",
+    "react": ">=17.0.0"
+  }
+}
