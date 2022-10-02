@@ -10,7 +10,7 @@
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": ["DOM", "ESNext"],
     "module": "esnext",
     "moduleResolution": "node",

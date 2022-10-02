@@ -1,24 +1,17 @@
 {
   "name": "next-i18next-ext",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "",
-  "type": "module",
-  "exports": {
-    ".": "./dist/index.js",
-    "./appWithTranslation": "./dist/appWithTranslation.js"
-  },
-  "typesVersions": {
-    "*": {
-      "*": ["dist/index.d.ts"],
-      "appWithTranslation": ["dist/appWithTranslation.d.ts"]
-    }
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "files": [
-    "dist"
+    "dist",
+    "server.js",
+    "server.d.ts"
   ],
   "scripts": {
     "lint": "eslint src",
-    "watch": "tsup --watch",
+    "watch": "tsup --clean --watch",
     "build": "tsup --clean",
     "prepublishOnly": "yarn run lint && yarn run build"
   },

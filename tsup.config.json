@@ -1,6 +1,6 @@
 {
-  "entry": ["src/index.tsx", "src/appWithTranslation.tsx"],
-  "format": ["esm"],
+  "entry": ["src/index.tsx", "src/server.tsx"],
+  "format": ["esm", "cjs"],
   "sourcemap": true,
   "minify": true,
   "dts": true

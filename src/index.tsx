@@ -1,43 +1,21 @@
-import NextDocument, { DocumentContext, DocumentInitialProps } from 'next/document';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { appWithTranslation as originalAppWithTranslation } from 'next-i18next';
 import { UserConfig } from 'next-i18next';
-import { PROP_NAME, GLOBAL_NAME } from './constants';
+import { PROP_NAME, GLOBAL_NAME, COMPONENT_DISPLAY_NAME } from './constants';
+import { mergeTranslations } from './utils';
 
-export { serverSideTranslations };
+export const appWithTranslation = originalAppWithTranslation;
 
-export const createGetInitialProps = (
-  ns?: string[],
-  configOverride?: UserConfig | null,
-  extraLocales?: false | string[],
-) => {
-  return async (ctx: DocumentContext) => {
-    const i18nProps = await serverSideTranslations(
-      ctx.locale || ctx.defaultLocale || '',
-      ns,
-      configOverride,
-      extraLocales,
-    );
+export const appWithTranslation2 = (App: any, configOverride?: UserConfig | null) => {
+  const AppWithTrans = originalAppWithTranslation(App, configOverride);
 
-    const originalRenderPage = ctx.renderPage;
-
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: (App: any) => (props: any) => <App {...props} {...i18nProps} />,
-        enhanceComponent: (Component: any) => Component,
-      });
-
-    const initialProps = await NextDocument.getInitialProps(ctx);
-
-    return {
-      ...initialProps,
-      head: [
-        ...(initialProps.head || []),
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.${GLOBAL_NAME}=${JSON.stringify(i18nProps[PROP_NAME])};`,
-          }}
-        />,
-      ],
-    } as DocumentInitialProps;
+  const WrappedApp = (appProps: any) => {
+    const { [PROP_NAME]: inApp = (globalThis as any)[GLOBAL_NAME], pageProps, ...rest } = appProps;
+    const { [PROP_NAME]: inPage } = pageProps;
+    const i18n = mergeTranslations(inApp, inPage);
+    console.log({ ...pageProps, [PROP_NAME]: i18n });
+    return <AppWithTrans {...rest} pageProps={{ ...pageProps, [PROP_NAME]: i18n }} />;
   };
+
+  WrappedApp.displayName = COMPONENT_DISPLAY_NAME;
+  return WrappedApp;
 };
