@@ -38,6 +38,6 @@ export const createGetInitialProps = (
           }}
         />,
       ],
-    } as Omit<DocumentInitialProps, 'head'> & Required<{ head: DocumentInitialProps['head'] }>;
+    } as DocumentInitialProps & Pick<Required<DocumentInitialProps>, 'head'>;
   };
 };
