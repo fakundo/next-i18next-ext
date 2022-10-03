@@ -20,11 +20,16 @@ export const createGetInitialProps = (
 
     const originalRenderPage = ctx.renderPage;
 
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: (App: any) => (props: any) => <App {...props} {...i18nProps} />,
-        enhanceComponent: (Component: any) => Component,
+    ctx.renderPage = (options: any) => {
+      const { enhanceApp, enhanceComponent } = options;
+      return originalRenderPage({
+        enhanceApp: (App: any) => (props: any) => {
+          const EnhancedApp = enhanceApp?.(App) || App;
+          return <EnhancedApp {...props} {...i18nProps} />;
+        },
+        enhanceComponent,
       });
+    };
 
     const initialProps = await NextDocument.getInitialProps(ctx);
 
