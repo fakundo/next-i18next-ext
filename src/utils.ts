@@ -16,11 +16,13 @@ const mergeNs = (a: any[], b: any[] = []) => {
 };
 
 export const mergeTranslations = (a: any, b: any) => {
+  if (!b) return a;
+
   const initialI18nStore: any = {};
   mergeStore(initialI18nStore, a?.initialI18nStore);
   mergeStore(initialI18nStore, b?.initialI18nStore);
 
-  const ns: string[] = [];
+  const ns: any = [];
   mergeNs(ns, a?.ns);
   mergeNs(ns, b?.ns);
 

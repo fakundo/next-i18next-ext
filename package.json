@@ -1,7 +1,7 @@
 {
   "name": "next-i18next-ext",
-  "version": "0.0.10",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Next integration with i18next",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "files": [
@@ -15,8 +15,20 @@
     "build": "tsup --clean",
     "prepublishOnly": "yarn run lint && yarn run build"
   },
+  "keywords": [
+    "next",
+    "i18next",
+    "next-i18next",
+    "next-i18next-ext",
+    "i18n",
+    "internationalization"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fakundo/next-i18next-ext"
+  },
   "author": "Roman Samoylov (https://github.com/fakundo)",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
     "next-i18next": "^12.1.0"
   },
