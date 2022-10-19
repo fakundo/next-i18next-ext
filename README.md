@@ -26,7 +26,9 @@ export default class _Document extends Document {
 }
 ```
 
+
 ### Steps above are the same as for `next-i18next`
+
 
 2. Configure your [custom App](https://nextjs.org/docs/advanced-features/custom-app)
 
@@ -35,12 +37,12 @@ import { appWithTranslation } from 'next-i18next-ext';
 
 const _App = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
-}
+};
 
 export default appWithTranslation(_App);
 ```
 
-3. You also able to use page level translations
+3. You also able to use page-level translations
 
 ```js
 import { serverSideTranslations } from 'next-i18next-ext/server';
@@ -51,24 +53,39 @@ export const getStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale, ['main-page'])),
     },
   };
-}
+};
+```
+
+4. Use translation
+
+```js
+import { useTranslation } from 'react-i18next';
+
+export const Footer = () => {
+  const { t } = useTranslation('common');
+  return (
+    <footer>
+      {t('description')}
+    </footer>
+  );
+};
 ```
 
 ## API
 
-### - createGetInitialProps
+#### createGetInitialProps
 
 ```ts
 const createGetInitialProps: (namespacesRequired?: string[], configOverride?: UserConfig | null, extraLocales?: string[] | false) => (ctx: DocumentContext) => DocumentInitialProps;
 ```
 
-### - serverSideProps
+#### serverSideProps
 
 ```ts
 const serverSideTranslations: (initialLocale: string, namespacesRequired?: string[] | undefined, configOverride?: UserConfig | null, extraLocales?: string[] | false) => Promise<SSRConfig>;
 ```
 
-### - appWithTranslation
+#### appWithTranslation
 
 ```ts
 const appWithTranslation: (App: any, configOverride?: UserConfig | null) => (appProps: any) => JSX.Element;
