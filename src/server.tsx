@@ -10,9 +10,9 @@ export const createGetInitialProps = (
   configOverride?: UserConfig | null,
   extraLocales?: false | string[],
 ) => {
-  return async (ctx: DocumentContext) => {
+  return async (ctx: DocumentContext, locale?: string) => {
     const i18nProps = await serverSideTranslations(
-      ctx.locale || ctx.defaultLocale || '',
+      locale || ctx.locale || ctx.defaultLocale || '',
       ns,
       configOverride,
       extraLocales,

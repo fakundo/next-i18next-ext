@@ -76,7 +76,7 @@ export const Footer = () => {
 #### createGetInitialProps
 
 ```ts
-const createGetInitialProps: (namespacesRequired?: string[], configOverride?: UserConfig | null, extraLocales?: string[] | false) => (ctx: DocumentContext) => DocumentInitialProps;
+const createGetInitialProps: (namespacesRequired?: string[], configOverride?: UserConfig | null, extraLocales?: string[] | false) => (ctx: DocumentContext, locale?: string) => DocumentInitialProps;
 ```
 
 #### serverSideProps
