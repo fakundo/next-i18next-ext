@@ -1,30 +1,39 @@
-const mergeStore = (a: any, b: any = {}) => {
-  Object.keys(b).forEach((lang: any) => {
-    a[lang] = {
-      ...a[lang],
-      ...b[lang],
-    };
+const mergeObjects = (...sources: { [key: string]: any }[]) => {
+  const res: { [key: string]: any } = {};
+  sources.forEach(source => {
+    Object.keys(source).forEach(key => {
+      res[key] =
+        res[key] && typeof res[key] === 'object'
+          ? mergeObjects(res[key], source[key])
+          : source[key];
+    });
   });
+  return res;
 };
 
-const mergeNs = (a: any[], b: any[] = []) => {
-  b.forEach(i => {
-    if (!a.includes(i)) {
-      a.push(i);
-    }
+const mergeArrays = (...sources: string[][]) => {
+  const res: string[] = [];
+  sources.forEach(source => {
+    source.forEach(element => {
+      if (!res.includes(element)) {
+        res.push(element);
+      }
+    });
   });
+  return res;
 };
 
-export const mergeTranslations = (a: any, b: any) => {
-  if (!b) return a;
+type T = {
+  initialI18nStore?: { [key: string]: any };
+  ns?: string[];
+};
 
-  const initialI18nStore: any = {};
-  mergeStore(initialI18nStore, a?.initialI18nStore);
-  mergeStore(initialI18nStore, b?.initialI18nStore);
-
-  const ns: any = [];
-  mergeNs(ns, a?.ns);
-  mergeNs(ns, b?.ns);
-
-  return { ...(b || a), initialI18nStore, ns };
+export const mergeTranslations = (a?: T, b?: T): T | undefined => {
+  return a && b
+    ? {
+        ...b,
+        initialI18nStore: mergeObjects(a?.initialI18nStore || {}, b?.initialI18nStore || {}),
+        ns: mergeArrays(a?.ns || [], b?.ns || []),
+      }
+    : a || b;
 };
