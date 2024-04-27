@@ -24,16 +24,17 @@ const mergeArrays = (...sources: string[][]) => {
 };
 
 type T = {
-  initialI18nStore?: { [key: string]: any };
   ns?: string[];
+  initialI18nStore?: { [key: string]: any };
 };
 
 export const mergeTranslations = (a?: T, b?: T): T | undefined => {
   return a && b
     ? {
+        ...a,
         ...b,
-        initialI18nStore: mergeObjects(a?.initialI18nStore || {}, b?.initialI18nStore || {}),
         ns: mergeArrays(a?.ns || [], b?.ns || []),
+        initialI18nStore: mergeObjects(a?.initialI18nStore || {}, b?.initialI18nStore || {}),
       }
     : a || b;
 };
