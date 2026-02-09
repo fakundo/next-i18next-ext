@@ -4,12 +4,13 @@ import { PROP_NAME, SCRIPT_ID, COMPONENT_DISPLAY_NAME } from './constants';
 import { mergeTranslations } from './utils';
 import { useMemo } from 'react';
 
+let GLOBAL_IN_APP: any;
+
 const getFromDoc = () => {
   try {
-    return JSON.parse(document.getElementById(SCRIPT_ID)!.textContent!);
-  } catch {
-    return undefined;
-  }
+    GLOBAL_IN_APP = GLOBAL_IN_APP || JSON.parse(document.getElementById(SCRIPT_ID)!.textContent!);
+  } catch {}
+  return GLOBAL_IN_APP;
 };
 
 export const appWithTranslation = (App: any, configOverride?: UserConfig | null) => {
