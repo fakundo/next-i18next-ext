@@ -1,7 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import NextDocument, { DocumentContext, DocumentInitialProps } from 'next/document';
 import { UserConfig } from 'next-i18next';
-import { PROP_NAME, GLOBAL_NAME } from './constants';
+import { PROP_NAME, SCRIPT_ID } from './constants';
 
 export { serverSideTranslations };
 
@@ -38,9 +38,9 @@ export const createGetInitialProps = (
       head: [
         ...(initialProps.head || []),
         <script
-          dangerouslySetInnerHTML={{
-            __html: `window.${GLOBAL_NAME}=${JSON.stringify(i18nProps[PROP_NAME])};`,
-          }}
+          type="application/json"
+          id={SCRIPT_ID}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(i18nProps[PROP_NAME]) }}
         />,
       ],
     } as DocumentInitialProps & Pick<Required<DocumentInitialProps>, 'head'>;
